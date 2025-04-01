@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AplicacaoReativaApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(AplicacaoReativaApplication.class, args);
+		System.out.println("Aplicação Reativa Iniciada");
 	}
 
 }
