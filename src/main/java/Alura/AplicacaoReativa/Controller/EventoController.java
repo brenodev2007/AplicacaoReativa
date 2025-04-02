@@ -22,6 +22,12 @@ public class EventoController {
         return eventoService.obterTodos();
     }
 
+    @GetMapping (value = "/eventos/categoria" , produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Evento> obterPorCategoria(@PathVariable String categoria) {
+        return eventoService.obterTodos().filter(evento -> evento.getCategoria().name().equals(categoria));
+    }
+
+
     @GetMapping("/{id}")
     public List<Evento> obterPorId(Long id) {
         return (List<Evento>) eventoService.obterPorId(id);
