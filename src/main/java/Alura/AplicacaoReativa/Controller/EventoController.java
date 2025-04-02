@@ -2,6 +2,7 @@ package Alura.AplicacaoReativa.Controller;
 
 import Alura.AplicacaoReativa.Entity.Evento;
 import Alura.AplicacaoReativa.Repository.EventoRepository;
+import Alura.AplicacaoReativa.Service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,36 +15,36 @@ import java.util.List;
 public class EventoController {
 
     @Autowired
-    private EventoRepository eventoRepository;
+    private EventoService eventoService;
 
     @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Evento> obterTodos() {
-        return eventoRepository.findAll();
+        return eventoService.obterTodos();
     }
 
     @GetMapping("/{id}")
     public List<Evento> obterPorId(Long id) {
-        return eventoRepository.findAllById(List.of(id)).collectList().block();
+        return (List<Evento>) eventoService.obterPorId(id);
     }
 
     @GetMapping("/nome/{nome}")
     public List<Evento> obterPorNome(String nome) {
-        return eventoRepository.findAllByNome(nome).collectList().block();
+        return (List<Evento>) eventoService.obterPorNome(nome);
     } //convertendo um flux em list
 
     @PostMapping("/cadastrar")
     public Evento cadastrar(Evento evento) {
-        return eventoRepository.save(evento).block();
+        return eventoService.cadastrar(evento);
     } //convertendo um mono em evento
 
     @PutMapping("/atualizar")
     public Evento atualizar(Evento evento) {
-        return eventoRepository.save(evento).block();
+        return eventoService.atualizar(evento);
     } //convertendo um mono em evento
 
     @DeleteMapping("/deletar/{id}")
     public void deletar(Long id) {
-        eventoRepository.deleteById(id).block();
+        eventoService.deletar(id);
     } //convertendo um mono em evento
 
 }
