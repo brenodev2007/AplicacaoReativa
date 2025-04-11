@@ -28,6 +28,8 @@ public class EventoController {
     }
 
 
+
+
     @GetMapping("/{id}")
     public List<Evento> obterPorId(Long id) {
         return (List<Evento>) eventoService.obterPorId(id);
